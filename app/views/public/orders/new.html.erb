@@ -1,0 +1,73 @@
+<div class='container px-5 px-sm-0'>
+ <div class='row'>
+  <div class="col-md-8 offset-md-1">
+  <br></br>
+  <h1>注文情報入力</h1>
+  <%= form_with model: @order, url:public_orders_information_path, method: :post , local:true do |order| %>
+   <strong>支払方法</strong>
+   <table>
+    <tr>
+     <td>
+      <% Order.payment_methods.keys.each do |k| %>
+      <%= order.radio_button :payment_methods, k %>
+      <%= order.label :payment_methods, k, value: k %>
+      <%#= order.select :payment_method, Order.payment_methods.keys.map {|k| [k, k]} %>
+      <!--↑セレクトボタンの書き方-->
+      <% end %>
+     </td>
+    </tr>
+   </table>
+   <strong>お届け先</strong>
+   <br>
+   <%= order.radio_button :code, 0 %>
+   <%= order.label :code, 'ご自身の住所' %>
+   <%= current_customer.postal_code %>
+   <%= current_customer.address %>
+   <%= current_customer.last_name + current_customer.first_name %>
+   <br>
+   <%= order.radio_button :code, 1 %>
+   <%= order.label :code, '登録住所から選択' %>
+   <%= order.collection_select :address_code, current_customer.addresses, :id, :address_info, prompt: "選択してください" %>
+   <br>
+   <div>
+    <%= order.radio_button :code, 2 %><%= order.label :code, '新しいお届け先' %>
+    <table>
+     <tr><td>郵便番号(ハイフンなし)</td><td><%= order.text_field :postal_code, class:"form-control" %></td></tr>
+     <tr><td>住所</td><td colspan="8"><%= order.text_field :address, class:"form-control" %></td></tr>
+     <tr><td>宛名</td><td><%= order.text_field :name, class:"form-control" %></td></tr>
+    </table>
+   </div>
+   <%= order.submit "入力画面へ進む" , class: "fas fa-user-cog btn btn-primary" %>
+   <% end %>
+  </div>
+ </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <%# if @order.errors.any? %>
+    <!--<##= @order.errors.count %>件のエラーが発生しました-->
+    <%# @order.errors.full_messages.each do |message| %>
+     <%#= message %>
+    <%# end %>
+   <%# end %>
+   <!--<tr>-->
+   <!--  <td></td>-->
+   <!--  <td>-->
+       <%#= item.label :is_active, '販売中', value: true %>
+       <%#= item.radio_button :is_active, false %>
+       <%#= item.label :is_active, '販売停止中', value: false %>
+    <!--  </td>-->
+    <!--  <td></td>-->
+    <!--</tr

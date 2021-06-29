@@ -1,0 +1,79 @@
+<div class='container px-5 px-sm-0'>
+ <div class='row'>
+  <div class="col-md-8 offset-md-1">
+   <h1>注文履歴詳細</h1>
+   <table border="1">
+    <tr>
+     <th bgcolor="silver">購入者</th>
+     <td><%= link_to @order.customer.last_name + @order.customer.first_name, admin_customer_path(@order.customer.id), class: 'hoge' %></td>
+    </tr>
+    <tr>
+     <th bgcolor="silver">注文日</th>
+     <td><%= @order.created_at.strftime("%Y/%-m/%-d") %></td>
+    </tr>
+    <tr>
+     <th bgcolor="silver">配送先</th>
+     <td>〒<%= @order.postal_code %><br><%= @order.address %><br><%= @order.name %></td>
+    </tr>
+    <tr>
+     <th bgcolor="silver">支払方法</th>
+     <td><%= @order.payment_method %></td>
+    </tr>
+    <tr>
+
+     <th bgcolor="silver">注文ステータス</th>
+     <td>
+      <%= form_with model: @order, url: admin_order_path, local: true do |order| %>
+      <%= order.select :status, Order.statuses.keys %>
+      <%= order.submit "更新" , class: "fas fa-user-cog btn btn-success" %>
+      <% end %>
+     </td>
+
+    </tr>
+   </table>
+   <br></br>
+   <table border="1">
+    <thead>
+     <tr bgcolor="silver">
+      <th>商品名</th>
+      <th>単価(税込)</th>
+      <th>数量</th>
+      <th>小計(税込)</th>
+      <th>製作ステータス</th>
+      <th></th>
+     </tr>
+    </thead>
+    <tbody>
+      <% @order.order_details.each do |f| %>
+      <tr>
+      <td><%= f.item.name %></td>
+      <td>¥<%= f.item.price %>円(¥<%= (f.item.price* 1.1).round %>円)</td>
+      <td><%= f.amount %></td>
+      <td>¥<%= f.item.price* f.amount %>円(¥<%= f.price %>円)</td>
+      <td>
+       <%= form_with model: f, url: admin_order_detail_path(f), local: true do |order| %>
+        <%= order.select :making_status, OrderDetail.making_statuses.keys %>
+        <%= order.submit "更新" , class: "fas fa-user-cog btn btn-success" %>
+       <% end %>
+      </td>
+     </tr>
+     <% end %>
+    </tbody>
+   </table>
+   <table border="1">
+    <tr>
+     <th bgcolor="silver">商品合計</th>
+     <td><%= @order.total_payment - @order.shipping_cost %></td>
+    </tr>
+    <tr>
+     <th bgcolor="silver">送料</th>
+     <td><%= @order.shipping_cost %></td>
+    </tr>
+    <tr>
+     <th bgcolor="silver">請求金額合計</th>
+     <td><%= @order.total_payment %></td>
+    </tr>
+   </table>
+  </div>
+ </div>
+</div>

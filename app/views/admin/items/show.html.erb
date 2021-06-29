@@ -1,0 +1,17 @@
+<div class='container'>
+ <div class='row'>
+  <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+   <br></br>
+   <h1>商品詳細</h1><%= attachment_image_tag @item, :image,size: '100x100' %>
+   <table>
+    <tr><th>商品名</th><td><%= @item.name %></td></tr>
+    <tr><th>商品説明</th><td><%= @item.introduction %></td></tr>
+    <tr><th>ジャンル</th><td><%= @item.genre.name %></td></tr>
+    <tr><th>税込価格</br>(税抜価格)</th><td><%= (@item.price* 1.1).round %>円<br>(<%= @item.price %>円)</td></tr>
+    <tr><th>販売ステータス</th><td><% if @item.is_active %>販売中<% else %>販売停止中<% end %></td></tr>
+    <!--each doは複数の時に使うのでコントローラのshowアクションからそのまま引っ張ってくるために％の中に＠をつけている-->
+   </table>
+   <%= link_to "編集する" ,edit_admin_item_path, class: "fas fa-user-cog btn btn-success" %>
+  </div>
+ </div>
+</div>

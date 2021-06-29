@@ -1,0 +1,17 @@
+<div class='container'>
+ <div class='row'>
+  <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+    <br></br>
+    <h2>管理者ログイン</h2>
+    <%= form_with model: @admin, url: new_admin_session_path, local: true do |f| %>
+     <div>メールアドレス</div>
+     <div><%= f.email_field :email, class: "form-control", autofocus: true, autocomplete: "email" %></div>
+     <br></br>
+     <div>パスワード</div>
+     <div><%= f.password_field :password, class: "form-control", autocomplete: "current-password" %></div>
+     <br></br>
+     <div class="actions"><%= f.submit "ログイン", class:"btn btn-primary" %></div>
+    <% end %>
+  </div>
+ </div>
+</div>

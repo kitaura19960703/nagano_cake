@@ -1,0 +1,54 @@
+<div class='container px-5 px-sm-0'>
+ <div class='row'>
+  <div class="col-md-8 offset-md-1">
+  <br></br>
+  <h1>注⽂情報確認</h1>
+  <table border="1">
+   <thead>
+    <tr bgcolor="silver">
+     <th colspan="3">商品名</th>
+     <th>単価<br>(税込)</th>
+     <th>数量</th>
+     <th>小計</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <% @cart_items.each do |cart_item| %>
+      <td colspan="3">
+       <%= attachment_image_tag cart_item.item, :image,size: '50x50' %><%= cart_item.item.name %>
+      </td>
+      <td><%= cart_item.item.price %>円<br>(<%= (cart_item.item.price* 1.1).round %>円)</td>
+      <td><%= cart_item.amount %></td>
+      <td><%= cart_item.item.price*cart_item.amount %>円<br>(<%= (cart_item.item.price* 1.1).round*(cart_item.amount) %>円)</td>
+     </tr>
+     <% end %>
+    </tbody>
+   </table>
+   <table border="2">
+    <tr><th bgcolor="silver">送料</th><td><%= @order.shipping_cost %></td></tr>
+    <tr><th bgcolor="silver">商品合計</th><td><%= @total_payment %></td></tr>
+    <tr><th bgcolor="silver">請求金額</th><td><%= @order.total_payment %></td></tr>
+   </table>
+   <h4>支払方法</h4>
+   <%= @order.payment_method %>
+   <h4>お届け先</h4>
+   <table border="1">
+    <tr><th>郵便番号</th><td>〒<%= @order.postal_code %></td></tr>
+    <tr><th>登録住所</th><td><%= @order.address %></td></tr>
+    <tr><th>登録氏名</th><td><%= @order.name %></td></tr>
+   </table>
+   <%= form_with model: @order, url:public_orders_path, local:true do |order| %>
+   <%= order.hidden_field :total_payment, :value => @order.total_payment %>
+   <%= order.hidden_field :payment_method, :value => @order.payment_method %>
+   <%= order.hidden_field :postal_code, :value => @order.postal_code %>
+   <%= order.hidden_field :address, :value => @order.address %>
+   <%= order.hidden_field :name, :value => @order.name %>
+   <%= order.submit "注文を確定する" , class: "fas fa-user-cog btn btn-success" %>
+   <% end %>
+  </div>
+ </div>
+</div>
+
+
+

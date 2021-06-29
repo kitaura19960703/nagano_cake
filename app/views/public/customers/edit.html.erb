@@ -1,0 +1,36 @@
+
+<div class='container'>
+ <div class='row'>
+  <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+   <h1>会員情報編集</h1>
+   <% if @customer.errors.any? %>
+  　<%= @customer.errors.count %>件のエラーが発生しました
+  　<% @customer.errors.full_messages.each do |message| %>
+     <%= message %>
+  　<% end %>
+　 <% end %>
+   <%= form_with model: @customer, url:public_my_page_path(@customer) , local:true do |customer| %>
+   <table>
+    <tr>
+     <th>氏名</th>
+     <td><%= customer.text_field :last_name, class: "form-control" %></td>
+     <td><%= customer.text_field :first_name, class: "form-control" %></td>
+    </tr>
+    <tr>
+     <th>フリガナ</th>
+     <td><%= customer.text_field :last_name_kana, class: "form-control" %></td>
+     <td><%= customer.text_field :first_name_kana, class: "form-control" %></td>
+    </tr>
+    <tr><th>郵便番号</th><td><%= customer.text_field :postal_code, class: "form-control" %></td></tr>
+    <tr><th>住所</th><td colspan = "2"><%= customer.text_field :address, class: "form-control" %></td></tr>
+    <tr><th>電話番号</th><td colspan = "2"><%= customer.text_field :telephone_code, class: "form-control" %></td></tr>
+    <tr><th>e-mail</th><td colspan = "2"><%= customer.text_field :email, class: "form-control" %></td></tr>
+   </table>
+   <foot>
+    <%= customer.submit "編集内容を保存する" , class: "fas fa-user-cog btn btn-success" %>
+    <%= link_to "退会する" , public_customers_unsubscribe_path, class: "fas fa-user-cog btn btn-danger" %>
+   </foot>
+   <% end %>
+  </div>
+ </div>
+</div>

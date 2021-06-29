@@ -1,0 +1,21 @@
+<div class='container'>
+ <div class='row'>
+  <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+   <h1>マイページ</h1>
+   <h4>登録情報 <%= link_to "編集する", edit_public_customer_path(@customer.id), class: "fas fa-user-cog btn btn-success" %></h4>
+   <table border="1">
+    <tr><th bgcolor="silver">氏名</th><td><%= @customer.last_name + @customer.first_name %></td></tr>
+    <tr><th bgcolor="silver">カナ</th><td><%= @customer.last_name_kana + @customer.first_name_kana %></td></tr>
+    <tr><th bgcolor="silver">郵便番号</th><td><%= @customer.postal_code %></td></tr>
+    <tr><th bgcolor="silver">住所</th><td><%= @customer.address %></td></tr>
+    <tr><th bgcolor="silver">電話番号</th><td><%= @customer.telephone_code %></td></tr>
+    <tr><th bgcolor="silver">メールアドレス</th><td><%= @customer.email %></td></tr>
+   </table>
+   <foot>
+    <%= link_to "配送先一覧", public_addresses_path, class: "fas fa-user-cog btn btn-primary" %>
+    <%= link_to "注文履歴一覧", public_orders_path, class: "fas fa-user-cog btn btn-primary" %>
+   </foot>
+  </div>
+ </div>
+</div>
+

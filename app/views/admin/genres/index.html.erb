@@ -1,0 +1,28 @@
+<div class='container'>
+ <div class='row'>
+  <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+   <br></br>
+   <h1>ジャンル一覧・追加</h1>
+   <% if @genre.errors.any? %>
+    <%= @genre.errors.count %>件のエラーが発生しました
+    <% @genre.errors.full_messages.each do |message| %>
+     <%= message %>
+    <% end %>
+   <% end %>
+   <%= form_with model: @genre, url:admin_genres_path , local:true do |genre| %>
+    <p>ジャンル名 <%= genre.text_field :name %> <%= genre.submit "新規登録" , class: "fas fa-user-cog btn btn-success" %></p>
+    <%= flash[:notice] %>
+    <br></br>
+    <table class="table table-hover">
+     <tr bgcolor="silver"><th>ジャンル</th><td></td></tr>
+     <% @genres.each do |genre| %>
+     <tr>
+      <th><%= genre.name %></th>
+      <td><%= link_to "編集する", edit_admin_genre_path(genre), class: "fas fa-user-cog btn btn-success" %></td>
+     </tr>
+     <% end %>
+    </table>
+    <% end %>
+   </div>
+  </div>
+ </div>

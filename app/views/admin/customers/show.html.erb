@@ -1,0 +1,21 @@
+<div class='container'>
+ <div class='row'>
+  <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+   <br></br>
+   <h1>会員詳細</h1>
+   <table border="1">
+    <tr><th bgcolor="silver">会員ID</th><td><%= @customer.id %></td></tr>
+    <tr><th bgcolor="silver">氏名</th><td><%= @customer.last_name + @customer.first_name %></td></tr>
+    <tr><th bgcolor="silver">フリガナ</th><td><%= @customer.last_name_kana + @customer.first_name_kana %></td></tr>
+    <tr><th bgcolor="silver">郵便番号</th><td>〒<%= @customer.postal_code %></td></tr>
+    <tr><th bgcolor="silver">住所</th><td><%= @customer.address %></td></tr>
+    <tr><th bgcolor="silver">電話番号</th><td><%= @customer.telephone_code %></td></tr>
+    <tr><th bgcolor="silver">メールアドレス</th><td><%= @customer.email %></td></tr>
+    <tr><th bgcolor="silver">会員ステータス</th><td><% if @customer.is_active %>有効<% else %>退会<% end %></td></tr>
+   </table>
+   <%= link_to "編集する", edit_admin_customer_path(@customer.id), class: "fas fa-user-cog btn btn-success" %>
+   <%= link_to "注文履歴一覧に戻る", admin_root_path, class: "fas fa-user-cog btn btn-primary" %>
+  </div>
+ </div>
+</div>
+

@@ -1,0 +1,24 @@
+<div class='container'>
+ <div class='row'>
+  <div class="col-md-8 mx-auto">
+   <br></br>
+   <h1>商品詳細</h1>
+   <%= attachment_image_tag @item, :image,size: '100x100' %>
+   <table>
+    <tr><th>商品名</th><td><%= @item.name %></td></tr>
+    <tr><th>商品説明</th><td><%= @item.introduction %></td></tr>
+    <tr><th>税抜価格</br>(税込価格)</th><td>(<%= @item.price %>円)<br><%= (@item.price* 1.1).round %>円</td></tr>
+   </table>
+    <% if customer_signed_in? %>
+     <%= form_with model: @cart_item, url:public_cart_items_path,method: :post, local:true do |cart_item| %>
+      <!--上はitemから情報を引っ張ってくるのでitemでいいがカートに入れたら情報をcart_itemに送りたいのでモデルをcart_itemnにしている-->
+      <%= cart_item.select :amount, options_for_select((1..10).to_a) %>
+      <%= cart_item.hidden_field :item_id, :value => @item.id %>
+      <%= cart_item.submit "カートに入れる", class: "fas fa-user-cog btn btn-success" %>
+     <% end %>
+    <% end %>
+    <!--each doは複数の時に使うのでコントローラのshowアクションからそのまま引っ張ってくるために％の中に＠をつけている-->
+
+  </div>
+ </div>
+</div>
