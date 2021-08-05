@@ -4,11 +4,8 @@
    <br></br>
    <h1>ジャンル一覧・追加</h1>
    <% if @genre.errors.any? %>
-    <%= @genre.errors.count %>件のエラーが発生しました
-    <% @genre.errors.full_messages.each do |message| %>
-     <%= message %>
-    <% end %>
-   <% end %>
+   <% if @genre.name.blank? %><p class='text-danger'>※ジャンル名を登録してください</p><% else %><p class='text-danger'>※そのジャンル名は登録済みです</p><% end %>
+  <% end %>
    <%= form_with model: @genre, url:admin_genres_path , local:true do |genre| %>
     <p>ジャンル名 <%= genre.text_field :name %> <%= genre.submit "新規登録" , class: "fas fa-user-cog btn btn-success" %></p>
     <%= flash[:notice] %>

@@ -11,6 +11,7 @@ class Admin::GenresController < ApplicationController
     redirect_to admin_genres_path
     # noticeはredirect_toの前に書く
     else
+    @genres = Genre.all
     render action: :index
     # createを設定する時はストロングパラメータとsaveとredirect先がセット
     end
